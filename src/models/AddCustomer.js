@@ -96,7 +96,6 @@ const AddCustomer = ({setShowModal}) => {
             placeholder="Company Name"
             type="text"
             name="name"
-            value={first_name}
             onChange={(e) => setName(e.target.value)}
             
           />
@@ -106,7 +105,6 @@ const AddCustomer = ({setShowModal}) => {
             placeholder="Email"
             type="email"
             name="email"
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
             
           />
@@ -122,7 +120,6 @@ const AddCustomer = ({setShowModal}) => {
               className="m-6 absolute"
               type="file"
               ref={imageRef}
-              value={avatar}
               onChange={handleImageChange}
             />
           </div>
