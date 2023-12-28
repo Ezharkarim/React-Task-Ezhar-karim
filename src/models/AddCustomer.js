@@ -3,27 +3,64 @@ import Maskgroup from "../assets/images/Maskgroup.png";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCustomer } from "../redux/reducers/customers";
-import { useNavigate } from "react-router-dom";
 
 const AddCustomer = ({setShowModal, showModal}) => {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customer);
 
   const [first_name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [image, setImage] = useState(null);
- 
+  const [email, setEmail] = useState(""); 
+  const [avatar, setAvatar] = useState(null);
+  
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const imgname = file.name;
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        const img = new Image();
+        img.src = reader.result;
+  
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const maxSize = Math.max(img.width, img.height);
+          canvas.width = maxSize;
+          canvas.height = maxSize;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(
+            img,
+            (maxSize - img.width) / 2,
+            (maxSize - img.height) / 2
+          );
+          canvas.toBlob(
+            (blob) => {
+              const url = URL.createObjectURL(blob);
+              setAvatar(url);
+            },
+            file.type,
+            0.8
+          );
+        };
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  };
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (customer && customer.customer.length > 0) {
       const newId = customer.customer[customer.customer.length - 1].id + 1;
-      const newCustomer = { id: newId, first_name, email, image };
+      const newCustomer = { id: newId, first_name, email, avatar };
       console.log("EEE",newCustomer);
       dispatch(addCustomer(newCustomer));
       
       setName("");
       setEmail("");
-      setImage(null);
+      setAvatar(null);
       setShowModal(false)
     } else {
   
@@ -83,9 +120,7 @@ const AddCustomer = ({setShowModal, showModal}) => {
               className="m-6 absolute"
               type="file"
               ref={imageRef}
-              onChange={(e) =>
-                setImage(e.target.files ? e.target.files[0] : null)
-              }
+              onChange={handleImageChange}
             />
           </div>
 

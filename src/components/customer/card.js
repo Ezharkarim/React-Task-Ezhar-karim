@@ -19,6 +19,7 @@ const Card = ({ isloading, customer}) => {
               >
                 <div className=" rounded-[20px] h-[112px]  overflow-hidden ">
                   <img src={data.avatar} alt="img here" />
+                  
                 </div>
                 <div>
                   <span className=" text-[18px] font-normal">
@@ -27,7 +28,7 @@ const Card = ({ isloading, customer}) => {
                 </div>
                 <div>
                   <span className=" text-[#57BC90] text-[18px] font-semibold">
-                    {`${data.first_name} ${data.last_name}`}
+                    {`${data.first_name}`}
                   </span>
                 </div>
                 <div>

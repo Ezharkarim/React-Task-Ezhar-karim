@@ -11,19 +11,57 @@ const EditCustomer = ({setEditModel}) => {
  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [image, setImage] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const imgname = file.name;
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        const img = new Image();
+        img.src = reader.result;
+  
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const maxSize = Math.max(img.width, img.height);
+          canvas.width = maxSize;
+          canvas.height = maxSize;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(
+            img,
+            (maxSize - img.width) / 2,
+            (maxSize - img.height) / 2
+          );
+          canvas.toBlob(
+            (blob) => {
+              const url = URL.createObjectURL(blob);
+              setAvatar(url);
+            },
+            file.type,
+            0.8
+          );
+        };
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  };
+  
 
   const handleSubmit = (e) => {
     
     e.preventDefault();
     if (customer && customer.customer.length > 0) {
       const newId = customer.customer[customer.customer.length - 1].id + 1;
-      const newCustomer = { id: newId, name, email, image };
+      const newCustomer = { id: newId, name, email, avatar };
       dispatch(addCustomer(newCustomer));
       // Optionally, you might want to reset the form fields after submission
       setName("");
       setEmail("");
-      setImage(null);
+      setAvatar(null);
     } else {
       // Handle the case when the customer array is empty
     }
@@ -81,9 +119,7 @@ const EditCustomer = ({setEditModel}) => {
               className="m-6 absolute"
               type="file"
               ref={imageRef}
-              onChange={(e) =>
-                setImage(e.target.files ? e.target.files[0] : null)
-              }
+              onChange={handleImageChange}
             />
           </div>
 
