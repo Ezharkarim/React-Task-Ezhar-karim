@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCustomer } from "../redux/reducers/customers";
 
-const AddCustomer = ({setShowModal, showModal}) => {
+const AddCustomer = ({setShowModal}) => {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customer);
 
@@ -96,8 +96,9 @@ const AddCustomer = ({setShowModal, showModal}) => {
             placeholder="Company Name"
             type="text"
             name="name"
+            value={first_name}
             onChange={(e) => setName(e.target.value)}
-            required
+            
           />
 
           <input
@@ -105,8 +106,9 @@ const AddCustomer = ({setShowModal, showModal}) => {
             placeholder="Email"
             type="email"
             name="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            
           />
 
           <div className="flex ">
@@ -120,6 +122,7 @@ const AddCustomer = ({setShowModal, showModal}) => {
               className="m-6 absolute"
               type="file"
               ref={imageRef}
+              value={avatar}
               onChange={handleImageChange}
             />
           </div>

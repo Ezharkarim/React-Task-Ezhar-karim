@@ -1,5 +1,4 @@
 import { Layout } from "antd";
-import CardHeader from "../common/cardHeader";
 import CustomerList from "./customer/CustomerList";
 import { PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
@@ -11,11 +10,9 @@ const MainContent = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div>
+    <div className="m-[0px] lg:m-[40px]">
       <Content
-        style={{
-          margin: "0 40px",
-        }}
+       
       >
         <div
           style={{
@@ -28,8 +25,8 @@ const MainContent = () => {
             <>
               <div
                 onClick={() => setShowModal(true)}
-                className="bg-gradient-to-r from-[#57BC90] to-[#004B40] w-[300px] h-[50px]
-             text-white rounded-[10px] flex items-center justify-center text-[16px] cursor-pointer"
+                className="bg-gradient-to-r from-[#57BC90] to-[#004B40] w-[250px] lg:w-[300px] h-[40px] lg:h-[50px]
+             text-white rounded-[10px] flex items-center justify-center text-[12px] lg:text-[16px] cursor-pointer"
               >
                 <div className=" mr-[20px]">
                   <PlusOutlined />
@@ -50,7 +47,6 @@ const MainContent = () => {
               ) : null}
             </>
 
-            <CardHeader />
             <CustomerList />
           </div>
         </div>

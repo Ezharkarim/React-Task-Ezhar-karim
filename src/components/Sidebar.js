@@ -18,7 +18,7 @@ const Sidebar = () => {
         <img src={Logo} alt="logo here.." />
       </div>
       <p className=" text-white text-center mt-20 bg-[#043933] p-4 mx-4 rounded-md font-[Lato]">
-        <TeamOutlined /> <span>CUSTOMERS </span>
+        <TeamOutlined /> {!collapsed && <span>CUSTOMERS </span>}
       </p>
     </Sider>
   );

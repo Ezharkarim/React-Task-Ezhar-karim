@@ -46,8 +46,16 @@ export const customerSlice = createSlice({
     removeCustomer: (state, action) => {
       const removeData = state.customer.filter((item) => item.id !== Number(action.payload));
       state.customer = removeData ;
-      localStorage.setItem("key2", JSON.stringify(removeData));
+      localStorage.setItem("key1", JSON.stringify(removeData));
     },
+    editCustomer: (state, action) => {
+      const { id, first_name, email, avator } = action.payload;
+      const editedCustomer = state.customer.map((customer) =>
+        customer.id === id ? { ...customer, first_name, email, avator } : customer
+      );
+      state.customer = editedCustomer;
+      localStorage.setItem("key1", JSON.stringify(editedCustomer));
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCustomer.fulfilled, (state, action) => {
@@ -64,5 +72,5 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { addCustomer, removeCustomer } = customerSlice.actions;
+export const { addCustomer, removeCustomer, editCustomer} = customerSlice.actions;
 export default customerSlice.reducer;

@@ -27,7 +27,7 @@ function Home() {
             
           }}
         >
-          <span className="font-[Lato] ml-14 text-[35px] font-extrabold ">CUSTOMERS</span>
+          <span className="font-[Lato] ml-14 sm:text-[20px] md:[30px] lg:text-[35px] font-extrabold ">CUSTOMERS</span>
         </Header>
         <MainContent/>
       </Layout>
